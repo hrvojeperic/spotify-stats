@@ -104,56 +104,86 @@ class Stats extends Component {
         // TODO: handle API errors on UI
     }
 
+    
+
     render() {
         const styles = {
             width: "500px",
             height:"500px",
-            margin: "auto"
+            margin: "auto",
+            outline: "5px solid black",
+            backgroundColor: "black"
         }
         const imageStyles = {
-            position: "center",
-            width: "500px",
-            height:"500px"
+            display: "block",  
+            margin: "auto",
+            verticalAlign: "true",
+            width: "60%",
+            height:"300px"
         }
+        const captionStyle = {
+            position: "relative",
+            left: "auto",
+            right: "auto",
+            textColor: "black"
+        }
+        const textStyle = {
+            color: "white"
+        }
+        const imageContainer = {
+            width: "500px",
+            height:"420px",
+            display: "flex",
+            justifyContent: "center",
+            backgroundColor: "black"
+        }
+        const headerStyle = {
+            display: "flex",
+            justifyContent: "center",
+            width: "100%",
+            alignItems: "center"
+        }
+       
         return (
             <div>
-                <Carousel style={styles}>
-                    <Carousel.Item >
-                        <img
-                        style={imageStyles}
-                        src="https://i.scdn.co/image/ab67616d0000b27315c41974b14b87babd7a2261"
-                        alt="First slide"
-                        />
-                        <Carousel.Caption>
-                        <h3>First slide label</h3>
-                        <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-                        </Carousel.Caption>
-                    </Carousel.Item>
-                    <Carousel.Item>
-                        <img
-                        style={styles}
-                        src="https://i.scdn.co/image/ab67616d0000b27315c41974b14b87babd7a2261"
-                        alt="Second slide"
-                        />
-
-                        <Carousel.Caption>
-                        <h3>Second slide label</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                        </Carousel.Caption>
-                    </Carousel.Item>
-                    <Carousel.Item>
-                        <img
-                        style={styles}
-                        src="https://i.scdn.co/image/ab67616d0000b27315c41974b14b87babd7a2261"
-                        alt="Third slide"
-                        />
-
-                        <Carousel.Caption>
-                        <h3>Third slide label</h3>
-                        <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-                        </Carousel.Caption>
-                    </Carousel.Item>
-                </Carousel>
+                <div>
+                    <h1 style={headerStyle}>Top Artists</h1>
+                    <Carousel style={styles}>
+                        {[...Array(10)].map((x, i) =>
+                            <Carousel.Item >
+                                <div style={imageContainer}>
+                                    <img
+                                    style={imageStyles}
+                                    src={this.state.topArtistImages[i]}
+                                    alt="Slide"
+                                    />
+                                </div>
+                                <Carousel.Caption style={captionStyle}>
+                                    <h3 style={textStyle}>{this.state.topArtistNames[i]}</h3>
+                                </Carousel.Caption>
+                            </Carousel.Item>
+                        )}
+                    </Carousel>
+                </div>
+                <div>
+                    <h1 style={headerStyle}>Top Songs</h1>
+                    <Carousel style={styles}>
+                        {[...Array(10)].map((x, i) =>
+                            <Carousel.Item >
+                                <div style={imageContainer}>
+                                    <img
+                                    style={imageStyles}
+                                    src={this.state.topSongImages[i]}
+                                    alt="Slide"
+                                    />
+                                </div>
+                                <Carousel.Caption style={captionStyle}>
+                                    <h3 style={textStyle}>{this.state.topSongNames[i]}</h3>
+                                </Carousel.Caption>
+                            </Carousel.Item>
+                        )}
+                    </Carousel>
+                </div>
             </div>
         );
     }
