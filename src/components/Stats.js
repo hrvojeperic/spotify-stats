@@ -268,6 +268,13 @@ class Stats extends Component {
             alignItems: "center"
         }
 
+
+        const graphStyle = {
+            width: "500px",
+            height:"500px",
+            margin: "auto"
+        }
+
         const data = {
             labels: [
               'Acousticness',
@@ -291,6 +298,12 @@ class Stats extends Component {
               pointHoverBorderColor: 'rgb(255, 99, 132)'
             }]
           };
+
+        const options={ 
+            legend: {
+                display: false,
+            },
+        };
         
         
        
@@ -365,21 +378,11 @@ class Stats extends Component {
                         )}
                     </Carousel>
                 </div>
-                <div>
-                    <Radar
+                <div style={graphStyle}>
+                    <Radar 
                     type='radar'
                     data={data}
-                    options={{
-                        title:{
-                          display:true,
-                          text:'Song Attributes',
-                          fontSize:20
-                        },
-                        legend:{
-                          display:true,
-                          position:'right'
-                        }
-                      }}
+                    options={options}
                     />
                 </div>
             </div>
