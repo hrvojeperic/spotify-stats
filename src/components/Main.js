@@ -32,7 +32,6 @@ class Main extends Component {
     }
 
     handleLogin = () => {
-        console.log("EEEEEEEEEEEEEE")
         // set up url for authentication
         const ENDPOINT = "https://accounts.spotify.com/authorize";
         const CLIENT_ID = "f6914647e144472a9946eba5f87d9721";
