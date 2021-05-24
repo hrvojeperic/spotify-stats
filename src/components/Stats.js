@@ -1,17 +1,18 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import Graphs from './Graphs';
+import TopArtists from './TopArtists';
 import TopSongs from './TopSongs';
+import TopGenres from './TopGenres';
+import TopRecommendations from './TopRecommendations';
+import Graphs from './Graphs';
 import { Stack, Item} from '@material-ui/core';
 import requests from '../utilities/requests';
 import Carousel from 'react-bootstrap/Carousel';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {
-    Chart,
-    Radar
-  } from 'react-chartjs-2';
+import { Radar } from 'react-chartjs-2';
 
 class Stats extends Component {
+    
     isSongUpdateDone = false;
     isArtistUpdateDone = false;
     state = {
@@ -231,160 +232,32 @@ class Stats extends Component {
     }
 
     render() {
-        const styles = {
-            width: "500px",
-            height:"500px",
-            margin: "auto",
-            outline: "5px solid black",
-            backgroundColor: "black"
-        }
-        const imageStyles = {
-            display: "block",  
-            margin: "auto",
-            verticalAlign: "true",
-            width: "60%",
-            height:"300px"
-        }
-        const captionStyle = {
-            position: "relative",
-            left: "auto",
-            right: "auto",
-            textColor: "black"
-        }
-        const textStyle = {
-            color: "white"
-        }
-        const imageContainer = {
-            width: "500px",
-            height:"420px",
-            display: "flex",
-            justifyContent: "center",
-            backgroundColor: "black"
-        }
-        const headerStyle = {
-            display: "flex",
-            justifyContent: "center",
-            width: "100%",
-            alignItems: "center"
-        }
-
-
-        const graphStyle = {
-            width: "500px",
-            height:"500px",
-            margin: "auto"
-        }
-
-        const data = {
-            labels: [
-              'Acousticness',
-              'Danceability',
-              'Energy',
-              'Instrumentalness',
-              'Liveness',
-              'Valence',
-              'Speechiness'
-            ],
-            datasets: [{
-              label: 'My First Dataset',
-              data: [this.state.songFeatures.acousticness, this.state.songFeatures.danceability, this.state.songFeatures.energy, this.state.songFeatures.instrumentalness, 
-              this.state.songFeatures.liveness, this.state.songFeatures.valence, this.state.songFeatures.speechiness],
-              fill: true,
-              backgroundColor: 'rgba(255, 99, 132, 0.2)',
-              borderColor: 'rgb(255, 99, 132)',
-              pointBackgroundColor: 'rgb(255, 99, 132)',
-              pointBorderColor: '#fff',
-              pointHoverBackgroundColor: '#fff',
-              pointHoverBorderColor: 'rgb(255, 99, 132)'
-            }]
-          };
-
-        const options={ 
-            legend: {
-                display: false,
-            },
-        };
-        
-        
-       
         return (
             <div>
-                <div>
-                    <h1 style={headerStyle}>Top Artists</h1>
-                    <Carousel style={styles}>
-                        {[...Array(10)].map((x, i) =>
-                            <Carousel.Item >
-                                <div style={imageContainer}>
-                                    <img
-                                    style={imageStyles}
-                                    src={this.state.topArtistImages[i]}
-                                    alt="Slide"
-                                    />
-                                </div>
-                                <Carousel.Caption style={captionStyle}>
-                                    <h3 style={textStyle}>{this.state.topArtistNames[i]}</h3>
-                                </Carousel.Caption>
-                            </Carousel.Item>
-                        )}
-                    </Carousel>
-                </div>
-                <div>
-                    <h1 style={headerStyle}>Top Songs</h1>
-                    <Carousel style={styles}>
-                        {[...Array(10)].map((x, i) =>
-                            <Carousel.Item >
-                                <div style={imageContainer}>
-                                    <img
-                                    style={imageStyles}
-                                    src={this.state.topSongImages[i]}
-                                    alt="Slide"
-                                    />
-                                </div>
-                                <Carousel.Caption style={captionStyle}>
-                                    <h3 style={textStyle}>{this.state.topSongNames[i]}</h3>
-                                </Carousel.Caption>
-                            </Carousel.Item>
-                        )}
-                    </Carousel>
-                </div>
-                <div>
-                    <h1 style={headerStyle}>Top Genres</h1>
-                    <Carousel style={styles}>
-                        {[...Array(10)].map((x, i) =>
-                            <Carousel.Item >
-                                <div style={imageContainer}>
-                                    <h3 style={textStyle}>{this.state.topGenres[i]}</h3>
-                                </div> 
-                            </Carousel.Item>
-                        )}
-                    </Carousel>
-                </div>
-                <div>
-                    <h1 style={headerStyle}>Recommendations</h1>
-                    <Carousel style={styles}>
-                        {[...Array(10)].map((x, i) =>
-                            <Carousel.Item >
-                                <div style={imageContainer}>
-                                    <img
-                                    style={imageStyles}
-                                    src={this.state.topRecommendationsImages[i]}
-                                    alt="Slide"
-                                    />
-                                </div>
-                                <Carousel.Caption style={captionStyle}>
-                                    <h3 style={textStyle}>{this.state.topRecommendations[i]}</h3>
-                                </Carousel.Caption>
-                            </Carousel.Item>
-                        )}
-                    </Carousel>
-                </div>
-                <div style={graphStyle}>
-                    <Radar 
-                    type='radar'
-                    data={data}
-                    options={options}
-                    />
-                </div>
+                
+                <TopArtists 
+                    topArtistNames={this.state.topArtistNames}
+                    topArtistImages={this.state.topArtistImages}
+                />
+            
+                <TopSongs 
+                    topSongNames={this.state.topSongNames}
+                    topSongImages={this.state.topSongImages}
+                />
+            
+                <TopGenres 
+                    topGenres={this.state.topGenres}
+                />
+            
+                <TopRecommendations
+                    topRecommendations={this.state.topRecommendations}
+                    topRecommendationsImages={this.state.topRecommendationsImages}
+                />
+            
+                <Graphs 
+                    songFeatures={this.state.songFeatures}
+                />
+                
             </div>
         );
     }

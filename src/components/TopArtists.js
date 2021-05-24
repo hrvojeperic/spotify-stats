@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import '../styles/topsongs.css';
 import Carousel from 'react-bootstrap/Carousel';
 
-const TopSongs = (props) => {
+const TopArtists = (props) => {
 
     const styles = {
         width: "500px",
@@ -43,25 +42,25 @@ const TopSongs = (props) => {
 
     return (
         <div>
-            <h1 style={headerStyle}>Top Songs</h1>
+            <h1 style={headerStyle}>Top Artists</h1>
             <Carousel style={styles}>
                 {[...Array(10)].map((x, i) =>
                     <Carousel.Item >
                         <div style={imageContainer}>
                             <img
                             style={imageStyles}
-                            src={props.topSongImages[i]}
+                            src={props.topArtistImages[i]}
                             alt="Slide"
                             />
                         </div>
                         <Carousel.Caption style={captionStyle}>
-                            <h3 style={textStyle}>{props.topSongNames[i]}</h3>
+                            <h3 style={textStyle}>{props.topArtistNames[i]}</h3>
                         </Carousel.Caption>
                     </Carousel.Item>
                 )}
-            </Carousel>
+            </Carousel> 
         </div>
     );
 }
 
-export default TopSongs;
+export default TopArtists;
