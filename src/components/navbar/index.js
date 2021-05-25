@@ -5,7 +5,6 @@ export const Navbar = () => {
     
     return (
         <>
-
             <Nav>
                 <NavLink to="/">
                     <h1>stats</h1>
@@ -32,7 +31,6 @@ export const Navbar = () => {
                     <NavBtnLink to='/sign-out'>Sign Out</NavBtnLink>
                 </NavBtn>
             </Nav>
-
         </>
     )
 }

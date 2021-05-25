@@ -12,7 +12,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Radar } from 'react-chartjs-2';
 
 class Stats extends Component {
-    
+
     isSongUpdateDone = false;
     isArtistUpdateDone = false;
     state = {
@@ -235,28 +235,43 @@ class Stats extends Component {
         return (
             <div>
                 
-                <TopArtists 
-                    topArtistNames={this.state.topArtistNames}
-                    topArtistImages={this.state.topArtistImages}
-                />
+                {window.location.pathname==="/top-artists" ? 
+                    <TopArtists 
+                        topArtistNames={this.state.topArtistNames}
+                        topArtistImages={this.state.topArtistImages}
+                    />
+                    : null
+                }
+
+                {window.location.pathname==="/top-songs" ? 
+                    <TopSongs 
+                        topSongNames={this.state.topSongNames}
+                        topSongImages={this.state.topSongImages}
+                    />
+                    : null
+                }
+
+                {window.location.pathname==="/top-genres" ? 
+                    <TopGenres 
+                        topGenres={this.state.topGenres}
+                     />
+                    : null
+                }
             
-                <TopSongs 
-                    topSongNames={this.state.topSongNames}
-                    topSongImages={this.state.topSongImages}
-                />
-            
-                <TopGenres 
-                    topGenres={this.state.topGenres}
-                />
-            
-                <TopRecommendations
-                    topRecommendations={this.state.topRecommendations}
-                    topRecommendationsImages={this.state.topRecommendationsImages}
-                />
-            
-                <Graphs 
-                    songFeatures={this.state.songFeatures}
-                />
+                {window.location.pathname==="/recommendations" ? 
+                    <TopRecommendations
+                        topRecommendations={this.state.topRecommendations}
+                        topRecommendationsImages={this.state.topRecommendationsImages}
+                    />
+                    : null
+                }
+
+                {window.location.pathname==="/visuals" ? 
+                    <Graphs 
+                        songFeatures={this.state.songFeatures}
+                    />
+                    : null
+                }
                 
             </div>
         );

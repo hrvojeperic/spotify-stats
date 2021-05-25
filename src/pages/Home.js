@@ -8,7 +8,7 @@ export const Home = () => {
             alignItems: 'center',
             height: '90vh'
         }}>
-            <h1>HOME</h1>
+            <h1>HOMEEE</h1>
         </div>
     )
 }

@@ -8,7 +8,11 @@ const Graphs = (props) => {
     const graphStyle = {
         width: "500px",
         height:"500px",
-        margin: "auto"
+        margin: "auto",
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '90vh'
     }
 
     const data = {

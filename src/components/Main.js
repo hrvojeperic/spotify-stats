@@ -2,8 +2,14 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import Stats from './Stats';
 import Login from './Login';
-import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'; 
 import Navbar from './navbar';
+import Home from '../pages/Home';
+import TopSongs from '../pages/TopSongs';
+import TopArtists from '../pages/TopArtists';
+import TopGenres from '../pages/TopGenres';
+import Recommendations from '../pages/Recommendations';
+import Visuals from '../pages/Visuals';
 
 class Main extends Component {
 
@@ -19,7 +25,6 @@ class Main extends Component {
         if(window.location.hash){
             this.setState({visible: false});
             const paramInfo = this.getParamsFromAuthentication(window.location.hash);
-            console.log(paramInfo)
             localStorage.clear();
             this.setState({
                 accessToken: paramInfo.access_token, 
@@ -60,7 +65,30 @@ class Main extends Component {
     render() {
         return (
             <div>
-                {!this.state.visible ? <Navbar/> : <Login login={() => this.handleLogin()}/>}
+                {!this.state.visible ? 
+                <>
+                <Router>
+                    <Navbar/>
+                    <Switch>
+                        <Route path='/' exact component={Stats} />
+                    </Switch>
+                    <Switch>
+                        <Route path='/top-songs' exact component={Stats} />
+                    </Switch>
+                    <Switch>
+                        <Route path='/top-artists' exact component={Stats} />
+                    </Switch>
+                    <Switch>
+                        <Route path='/top-genres' exact component={Stats} />
+                    </Switch>
+                    <Switch>
+                        <Route path='/recommendations' exact component={Stats} />
+                    </Switch>
+                    <Switch>
+                        <Route path='/visuals' exact component={Stats} />
+                    </Switch>
+                </Router>
+                </> : <Login login={() => this.handleLogin()}/>}
             </div>
         );
     }

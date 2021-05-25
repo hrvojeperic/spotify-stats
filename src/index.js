@@ -14,28 +14,7 @@ import Visuals from './pages/Visuals';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Router>
-      <Main />
-      <Switch>
-        <Route path='/' exact component={Home} />
-      </Switch>
-      <Switch>
-        <Route path='/top-songs' exact component={TopSongs} />
-      </Switch>
-      <Switch>
-        <Route path='/top-artists' exact component={TopArtists} />
-      </Switch>
-      <Switch>
-        <Route path='/top-genres' exact component={TopGenres} />
-      </Switch>
-      <Switch>
-        <Route path='/recommendations' exact component={Recommendations} />
-      </Switch>
-      <Switch>
-        <Route path='/visuals' exact component={Visuals} />
-      </Switch>
-    </Router>
-
+    <App></App>
   </React.StrictMode>,
   document.getElementById('root')
 );

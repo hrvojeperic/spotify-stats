@@ -1,23 +1,18 @@
 import logo from './logo.svg';
 import './App.css';
+import Main from './components/Main';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'; 
+import Home from './pages/Home';
+import TopSongs from './pages/TopSongs';
+import TopArtists from './pages/TopArtists';
+import TopGenres from './pages/TopGenres';
+import Recommendations from './pages/Recommendations';
+import Visuals from './pages/Visuals';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+       <Main></Main>
     </div>
   );
 }
