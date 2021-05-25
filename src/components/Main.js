@@ -3,6 +3,7 @@ import axios from 'axios';
 import Stats from './Stats';
 import Login from './Login';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+import Navbar from './navbar';
 
 class Main extends Component {
 
@@ -59,7 +60,7 @@ class Main extends Component {
     render() {
         return (
             <div>
-                {!this.state.visible ? <Stats/> : <Login login={() => this.handleLogin()}/>}
+                {!this.state.visible ? <Navbar/> : <Login login={() => this.handleLogin()}/>}
             </div>
         );
     }
