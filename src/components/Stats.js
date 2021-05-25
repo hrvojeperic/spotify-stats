@@ -6,7 +6,7 @@ import TopSongs from './TopSongs';
 import TopGenres from './TopGenres';
 import TopRecommendations from './TopRecommendations';
 import Graphs from './Graphs';
-import { Stack, Item} from '@material-ui/core';
+import { Stack, Item, duration} from '@material-ui/core';
 import requests from '../utilities/requests';
 import Carousel from 'react-bootstrap/Carousel';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -166,7 +166,6 @@ class Stats extends Component {
     }
 
     _showTopSongFeaturesCallback = (data) => {
-        console.log(data)
         let acousticness = 0;
         let danceability = 0;
         let energy = 0;
@@ -174,6 +173,7 @@ class Stats extends Component {
         let liveness = 0;
         let valence = 0;
         let speechiness = 0;
+        let durationMs = [];
         let length = data.audio_features.length;
 
         for(let i = 0; i < length; i++) {
@@ -184,6 +184,7 @@ class Stats extends Component {
             liveness += data.audio_features[i].liveness;
             valence += data.audio_features[i].valence;
             speechiness += data.audio_features[i].speechiness;
+            durationMs.push(data.audio_features[i].duration_ms);
 
         }
 
@@ -194,6 +195,23 @@ class Stats extends Component {
         liveness = liveness / length;
         valence = valence / length;
         speechiness = speechiness / length;
+
+        let sum = 0;
+        let max = durationMs[0];
+        let min = durationMs[0];
+        for (let i = 0; i < durationMs.length; i++) {
+            if (max < durationMs[i]) {
+                max = durationMs[i]
+            }
+            if (min > durationMs[i]) {
+                min = durationMs[i]
+            }
+            sum += durationMs[i];
+        }
+        max = max / 60000;
+        min = min / 60000;
+        sum = sum / 60000;
+        const durationAvg = sum / durationMs.length;
         
         const features = {
                 "acousticness": acousticness,
@@ -202,13 +220,14 @@ class Stats extends Component {
                 "instrumentalness": instrumentalness,
                 "liveness": liveness,
                 "valence": valence,
-                "speechiness": speechiness
+                "speechiness": speechiness,
+                "minDuration": min,
+                "maxDuration": max,
+                "avgDuration": durationAvg
         }
         this.setState({
             songFeatures: features
         })
-        console.log(this.state.songFeatures )
-        console.log(this.state.songFeatures.danceability)
     }
 
     calculateTopGenres = (genres) => {
