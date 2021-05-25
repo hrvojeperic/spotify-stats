@@ -5,80 +5,55 @@ import Image from 'react-bootstrap/Image';
 
 const TopSongs = (props) => {
 
-    // const styles = {
-    //     width: "500px",
-    //     height:"500px",
-    //     margin: "auto",
-    //     outline: "5px solid black",
-    //     backgroundColor: "black"
-    // }
-    // const imageStyles = {
-    //     display: "block",  
-    //     margin: "auto",
-    //     verticalAlign: "true",
-    //     width: "60%",
-    //     height:"300px"
-    // }
-    // const captionStyle = {
-    //     position: "relative",
-    //     left: "auto",
-    //     right: "auto",
-    //     textColor: "black"
-    // }
-    // const textStyle = {
-    //     color: "white"
-    // }
-    // const imageContainer = {
-    //     width: "500px",
-    //     height:"420px",
-    //     display: "flex",
-    //     justifyContent: "center",
-    //     backgroundColor: "black"
-    // }
-    // const headerStyle = {
-    //     display: "flex",
-    //     justifyContent: "center",
-    //     width: "100%",
-    //     alignItems: "center"
-    // }
+    const songListStyle = {
+        color: "#fff",
+        width: "100%",
+        background: "linear-gradient(#000000 0%, #0f6c30 40%, #1ed760 100%)",
+        alignItems: "center",
+        justifyContent: "center",
+        paddingTop: "70px"
+    }
 
-    const itemStyle = {
-        height:"400px",
-        width:"500px"
+    const songStyle = {
+        display: "flex",
+        fontFamily: "Montserrat, sans-serif",
+        margin: "0rem",
+        height: "25vh",
+        justifyContent: "center"
+    }
+
+    const photoStyle = {
+        width: "30vw",
+        paddingRight: "50px",
+        textAlign: "right"
+    }
+
+    const nameStyle = {
+        marginLeft: "0%",
+        marginTop: "3%",
+        width: "30vw"
+    }
+
+    const imageStyle = {
+        background: "gray",
+        width: "150px",
+        height: "150px",
+        borderRadius: "50%"
     }
 
     return (
-        <div style={{backgroundColor: "#1DB954",
-        display: "flex",
-  flexFlow: "row wrap",
-  justifyContent: "center",
-  alignContent: "center",
-  alignItems: "center"}}>
-            <div style={itemStyle}>
-            <h1>Top Songs</h1>
-            {[...Array(10)].map((x, i) =>
-                <div style={itemStyle}>
-                    <Image style={{width: "200px"}} src={props.topSongImages[i]} roundedCircle />
-                    <h3 >{props.topSongNames[i]}</h3>
-                </div>
-            )}
-            </div>
-            {/* <Carousel style={styles}>
+        <div style={songListStyle} >
                 {[...Array(10)].map((x, i) =>
-                    <Carousel.Item >
-                        <div style={imageContainer}>
-                            <img
-                            style={imageStyles}
-                            src={props.topSongImages[i]}
-                            alt="Slide"
-                            />
+                    <div style={songStyle}>
+                        <div style={photoStyle}>
+                            <img src={props.topSongImages[i]} style={imageStyle} />
                         </div>
-                        <Carousel.Caption style={captionStyle}>
-                            <h3 style={textStyle}>{props.topSongNames[i]}</h3>
-                        </Carousel.Caption>
-                    </Carousel.Item>
+                        <div style={nameStyle}>
+                            <h3>{props.topSongNames[i]}</h3>
+                            <h3 style={{color:"#C8C8C8"}}>By {props.topSongArtistName[i]}</h3>
+                        </div>
+                    </div>
                 )}
-            </Carousel> */}
         </div>
     );
 }

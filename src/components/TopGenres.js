@@ -3,57 +3,48 @@ import Carousel from 'react-bootstrap/Carousel';
 
 const TopGenres = (props) => {
 
-    const styles = {
-        width: "500px",
-        height:"500px",
-        margin: "auto",
-        outline: "5px solid black",
-        backgroundColor: "black"
-    }
-    const imageStyles = {
-        display: "block",  
-        margin: "auto",
-        verticalAlign: "true",
-        width: "60%",
-        height:"300px"
-    }
-    const captionStyle = {
-        position: "relative",
-        left: "auto",
-        right: "auto",
-        textColor: "black"
-    }
-    const textStyle = {
-        color: "white"
-    }
-    const imageContainer = {
-        width: "500px",
-        height:"420px",
-        display: "flex",
-        justifyContent: "center",
-        backgroundColor: "black"
-    }
-    const headerStyle = {
-        display: "flex",
-        justifyContent: "center",
+    const songListStyle = {
+        color: "#fff",
         width: "100%",
-        alignItems: "center"
+        background: "linear-gradient(#000000 0%, #0f6c30 40%, #1ed760 100%)",
+        alignItems: "center",
+        justifyContent: "center",
+        paddingTop: "70px"
+    }
+
+    const songStyle = {
+        display: "flex",
+        fontFamily: "Montserrat, sans-serif",
+        margin: "0rem",
+        height: "25vh",
+        justifyContent: "center"
+    }
+
+    const photoStyle = {
+        width: "30vw",
+        paddingRight: "50px",
+        textAlign: "right"
+    }
+
+    const nameStyle = {
+        marginLeft: "0%",
+        marginTop: "3%",
+        width: "30vw",
+        textAlign: "center"
     }
 
     return (
-        <div>
-            <h1 style={headerStyle}>Top Genres</h1>
-            <Carousel style={styles}>
+        <div style={songListStyle} >
                 {[...Array(10)].map((x, i) =>
-                    <Carousel.Item >
-                        <div style={imageContainer}>
-                            <h3 style={textStyle}>{props.topGenres[i]}</h3>
-                        </div> 
-                    </Carousel.Item>
+                    <div style={songStyle}>
+                        <div style={nameStyle}>
+                            <h3 >{props.topGenres[i]}</h3>
+                        </div>
+                    </div>
                 )}
-            </Carousel>
         </div>
     );
+
 }
 
 export default TopGenres;

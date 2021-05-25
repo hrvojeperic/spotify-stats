@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import Home from './Home';
 import TopArtists from './TopArtists';
 import TopSongs from './TopSongs';
 import TopGenres from './TopGenres';
@@ -10,6 +11,9 @@ import requests from '../utilities/requests';
 import Carousel from 'react-bootstrap/Carousel';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Radar } from 'react-chartjs-2';
+import defaultIcon from './default_image.jpg';
+import { FaThList } from 'react-icons/fa';
+
 
 class Stats extends Component {
 
@@ -20,15 +24,21 @@ class Stats extends Component {
         tokenType: "",
         expiresIn: "",
         playlists: {},
+        userName: "",
+        followers: 0,
+        userImage: "",
         topArtistNames: [],
         topArtistImages: [],
         topArtistID: [],
+        topArtistFollowers: [],
         topSongNames: [],
         topSongImages: [],
         topSongID: [],
+        topSongArtistName: [],
         topGenres: [],
         topRecommendations: [],
         topRecommendationsImages: [],
+        topRecommendationsArtistName: [],
         songFeatures: {}
     }
 
@@ -36,6 +46,7 @@ class Stats extends Component {
         if (localStorage.getItem("accessToken")) {
             this.setState({accessToken: localStorage.getItem("accessToken")});
             //this.getAlbums();
+            this.showUserProfile();
             this.showTopArtists();
             this.showTopSongs();
             // this.showRecommendations();
@@ -58,6 +69,25 @@ class Stats extends Component {
         });
     }
 
+    showUserProfile = () => {
+        requests.getUsersProfile(this._showUserProfileCallback, this._errorCallback);
+    }
+
+    _showUserProfileCallback = (data) => {
+        let name = data.display_name;
+        let followers = data.followers.total;
+        let image = defaultIcon;
+        if (data.images.length != 0) {
+            image = data.images[0].href;
+        }
+        this.setState({
+            userName: name,
+            followers: followers,
+            userImage: image
+        });
+        console.log(this.state.userName);
+    }
+
     showTopArtists = () => {
         requests.getTopArtists(this._showTopArtistsCallback, this._errorCallback);
     }
@@ -67,6 +97,7 @@ class Stats extends Component {
         let image = [];
         let id = [];
         let genres = [];
+        let followers = [];
         for(let i = 0; i < data.items.length; i++) {
             if (data.items[i].name != null) { // null checking
                 name.push(data.items[i].name);
@@ -82,12 +113,14 @@ class Stats extends Component {
             }
             id.push(data.items[i].id);
             genres.push(...data.items[i].genres);
+            followers.push(data.items[i].followers.total);
         }
         const calculatedTopGenres = this.calculateTopGenres(genres);
         this.setState({
             topArtistNames: name,
             topArtistImages: image,
             topArtistID: id,
+            topArtistFollowers: followers,
             topGenres: calculatedTopGenres
         }, () => {
             this.isArtistUpdateDone = true;
@@ -103,6 +136,7 @@ class Stats extends Component {
         let name = [];
         let image = [];
         let id = [];
+        let artistName = [];
         for(let i = 0; i < data.items.length; i++) {
             if (data.items[i].name != null) { // null checking
                 name.push(data.items[i].name);      
@@ -117,11 +151,13 @@ class Stats extends Component {
                 // TODO: Push default song image for null images
             }
             id.push(data.items[i].id);
+            artistName.push(data.items[i].album.artists[0].name);
         }
         this.setState({
             topSongNames: name,
             topSongImages: image,
-            topSongID: id
+            topSongID: id,
+            topSongArtistName: artistName
         }, () => {
             this.isSongUpdateDone = true;
             this.showRecommendations();
@@ -206,9 +242,6 @@ class Stats extends Component {
             for (let i = 0; (i < this.state.topSongID.length) &&  (i < 3); i++) {
                 songIDs.push(this.state.topSongID[i]);
             }
-
-            console.log(artistIDs);
-            console.log(songIDs);
             requests.getRecommendations(artistIDs, songIDs, this._showRecommendationsCallback, this._errorCallback);
         } 
         
@@ -217,13 +250,16 @@ class Stats extends Component {
     _showRecommendationsCallback = (data) => {
         let songs = [];
         let images = [];
+        let artistName = [];
         for(let i = 0; i < data.tracks.length; i++) {
             songs.push(data.tracks[i].name);
             images.push(data.tracks[i].album.images[0].url);
+            artistName.push(data.tracks[i].artists[0].name);
         }
         this.setState({
             topRecommendations: songs,
-            topRecommendationsImages: images
+            topRecommendationsImages: images,
+            topRecommendationsArtistName: artistName
         })
     }
 
@@ -234,11 +270,21 @@ class Stats extends Component {
     render() {
         return (
             <div>
+
+                {window.location.pathname==="/" ? 
+                    <Home
+                        userName={this.state.userName}
+                        followers={this.state.followers}
+                        userImage={this.state.userImage}
+                    />
+                    : null
+                }
                 
                 {window.location.pathname==="/top-artists" ? 
                     <TopArtists 
                         topArtistNames={this.state.topArtistNames}
                         topArtistImages={this.state.topArtistImages}
+                        topArtistFollowers={this.state.topArtistFollowers}
                     />
                     : null
                 }
@@ -247,6 +293,7 @@ class Stats extends Component {
                     <TopSongs 
                         topSongNames={this.state.topSongNames}
                         topSongImages={this.state.topSongImages}
+                        topSongArtistName={this.state.topSongArtistName}
                     />
                     : null
                 }
@@ -262,6 +309,7 @@ class Stats extends Component {
                     <TopRecommendations
                         topRecommendations={this.state.topRecommendations}
                         topRecommendationsImages={this.state.topRecommendationsImages}
+                        topRecommendationsArtistName={this.state.topRecommendationsArtistName}
                     />
                     : null
                 }

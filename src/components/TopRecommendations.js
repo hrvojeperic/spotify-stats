@@ -3,62 +3,55 @@ import Carousel from 'react-bootstrap/Carousel';
 
 const TopRecommendations = (props) => {
 
-    const styles = {
-        width: "500px",
-        height:"500px",
-        margin: "auto",
-        outline: "5px solid black",
-        backgroundColor: "black"
-    }
-    const imageStyles = {
-        display: "block",  
-        margin: "auto",
-        verticalAlign: "true",
-        width: "60%",
-        height:"300px"
-    }
-    const captionStyle = {
-        position: "relative",
-        left: "auto",
-        right: "auto",
-        textColor: "black"
-    }
-    const textStyle = {
-        color: "white"
-    }
-    const imageContainer = {
-        width: "500px",
-        height:"420px",
-        display: "flex",
-        justifyContent: "center",
-        backgroundColor: "black"
-    }
-    const headerStyle = {
-        display: "flex",
-        justifyContent: "center",
+    const songListStyle = {
+        color: "#fff",
         width: "100%",
-        alignItems: "center"
+        background: "linear-gradient(#000000 0%, #0f6c30 40%, #1ed760 100%)",
+        alignItems: "center",
+        justifyContent: "center",
+        paddingTop: "70px"
+    }
+
+    const songStyle = {
+        display: "flex",
+        fontFamily: "Montserrat, sans-serif",
+        margin: "0rem",
+        height: "25vh",
+        justifyContent: "center"
+    }
+
+    const photoStyle = {
+        width: "30vw",
+        paddingRight: "50px",
+        textAlign: "right"
+    }
+
+    const nameStyle = {
+        marginLeft: "0%",
+        marginTop: "3%",
+        width: "30vw"
+    }
+
+    const imageStyle = {
+        background: "gray",
+        width: "150px",
+        height: "150px",
+        borderRadius: "50%"
     }
 
     return (
-        <div>
-            <h1 style={headerStyle}>Recommendations</h1>
-            <Carousel style={styles}>
+        <div style={songListStyle} >
                 {[...Array(10)].map((x, i) =>
-                    <Carousel.Item >
-                        <div style={imageContainer}>
-                            <img
-                            style={imageStyles}
-                            src={props.topRecommendationsImages[i]}
-                            alt="Slide"
-                            />
+                    <div style={songStyle}>
+                        <div style={photoStyle}>
+                            <img src={props.topRecommendationsImages[i]} style={imageStyle} />
                         </div>
-                        <Carousel.Caption style={captionStyle}>
-                            <h3 style={textStyle}>{props.topRecommendations[i]}</h3>
-                        </Carousel.Caption>
-                    </Carousel.Item>
+                        <div style={nameStyle}>
+                            <h3>{props.topRecommendations[i]}</h3>
+                            <h3 style={{color:"#C8C8C8"}}>By {props.topRecommendationsArtistName[i]}</h3>
+                        </div>
+                    </div>
                 )}
-            </Carousel>
         </div>
     );
 }
