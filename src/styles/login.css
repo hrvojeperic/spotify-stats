@@ -1,0 +1,21 @@
+.button {
+    border-radius: 4px;
+    background: #1DB954;
+    padding: 10px 22px;
+    color: black;
+    font-weight:600;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    text-decoration: none;
+    margin-left: 24px;
+}
+
+
+.button:hover {
+    transition: all 0.2s ease-in-out;
+    background: #fff;
+    color: #010606;
+    text-decoration: none;
+}
