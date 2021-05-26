@@ -14,6 +14,7 @@ import { Radar } from 'react-chartjs-2';
 import defaultIcon from './default_image.jpg';
 import { FaThList } from 'react-icons/fa';
 
+// const tempo = {};
 
 class Stats extends Component {
 
@@ -39,7 +40,9 @@ class Stats extends Component {
         topRecommendations: [],
         topRecommendationsImages: [],
         topRecommendationsArtistName: [],
-        songFeatures: {}
+        songFeatures: {},
+        timeSignatures: {},
+        tempo: {}
     }
 
     componentDidMount() {
@@ -55,7 +58,6 @@ class Stats extends Component {
 
     getAlbums = () => {
         const ENDPOINT = "https://api.spotify.com/v1/me/playlists";
-        console.log("HERE: "+ localStorage.getItem("accessToken"));
         axios.get(ENDPOINT, {
             headers: {
                 Authorization: "Bearer " + localStorage.getItem("accessToken"),
@@ -85,7 +87,6 @@ class Stats extends Component {
             followers: followers,
             userImage: image
         });
-        console.log(this.state.userName);
     }
 
     showTopArtists = () => {
@@ -174,6 +175,8 @@ class Stats extends Component {
         let valence = 0;
         let speechiness = 0;
         let durationMs = [];
+        let timeSignature = [];
+        let tempo = [];
         let length = data.audio_features.length;
 
         for(let i = 0; i < length; i++) {
@@ -185,6 +188,8 @@ class Stats extends Component {
             valence += data.audio_features[i].valence;
             speechiness += data.audio_features[i].speechiness;
             durationMs.push(data.audio_features[i].duration_ms);
+            timeSignature.push(data.audio_features[i].time_signature);
+            tempo.push(data.audio_features[i].tempo);
 
         }
 
@@ -195,7 +200,8 @@ class Stats extends Component {
         liveness = liveness / length;
         valence = valence / length;
         speechiness = speechiness / length;
-
+        
+        // calculate min, max, average of song durations
         let sum = 0;
         let max = durationMs[0];
         let min = durationMs[0];
@@ -212,6 +218,27 @@ class Stats extends Component {
         min = min / 60000;
         sum = sum / 60000;
         const durationAvg = sum / durationMs.length;
+
+        // calculate the number of each time signature
+        var occurrences = {};
+        for (var i = 0, j = timeSignature.length; i < j; i++) {
+            occurrences[timeSignature[i]] = (occurrences[timeSignature[i]] || 0) + 1;
+        }
+
+        // group tempo into slow (0-64), moderate (65-109), fast (111-greater)
+        let tempoFrequency = {slow: 0, moderate: 0, fast: 0};
+        for (let i = 0; i < tempo.length; i++) {
+            if (tempo[i] <= 64) { // slow
+                tempoFrequency.slow++
+            }
+            else if (tempo[i] <= 109) { // moderate
+                tempoFrequency.moderate++
+            }
+            else { // fast
+                tempoFrequency.fast++
+            }
+        }
+        // tempo = tempoFrequency;
         
         const features = {
                 "acousticness": acousticness,
@@ -223,10 +250,12 @@ class Stats extends Component {
                 "speechiness": speechiness,
                 "minDuration": min,
                 "maxDuration": max,
-                "avgDuration": durationAvg
+                "avgDuration": durationAvg,
+                "timeSignatures": occurrences
         }
         this.setState({
-            songFeatures: features
+            songFeatures: features,
+            tempo: tempoFrequency
         })
     }
 
@@ -336,6 +365,7 @@ class Stats extends Component {
                 {window.location.pathname==="/visuals" ? 
                     <Graphs 
                         songFeatures={this.state.songFeatures}
+                        tempo={this.state.tempo != null ? this.state.tempo : {}}
                     />
                     : null
                 }
