@@ -9,14 +9,15 @@ const TopGenres = (props) => {
         background: "linear-gradient(#000000 0%, #0f6c30 40%, #1ed760 100%)",
         alignItems: "center",
         justifyContent: "center",
-        paddingTop: "70px"
+        paddingTop: "70px",
+        paddingBottom: "70px"
     }
 
     const songStyle = {
         display: "flex",
         fontFamily: "Montserrat, sans-serif",
         margin: "0rem",
-        height: "25vh",
+        minHeight: "25vh",
         justifyContent: "center"
     }
 

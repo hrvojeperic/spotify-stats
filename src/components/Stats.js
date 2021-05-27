@@ -225,17 +225,23 @@ class Stats extends Component {
             occurrences[timeSignature[i]] = (occurrences[timeSignature[i]] || 0) + 1;
         }
 
-        // group tempo into slow (0-64), moderate (65-109), fast (111-greater)
-        let tempoFrequency = {slow: 0, moderate: 0, fast: 0};
+        // group tempo into Largo (0-76), Adante (77-108), Moderato (109-120), Allegro (121-168), Presto (169 - greater)
+        let tempoFrequency = {largo: 0, adante: 0, moderato: 0, allegro: 0, presto: 0};
         for (let i = 0; i < tempo.length; i++) {
-            if (tempo[i] <= 64) { // slow
-                tempoFrequency.slow++
+            if (tempo[i] <= 76) { // slow
+                tempoFrequency.largo++
             }
-            else if (tempo[i] <= 109) { // moderate
-                tempoFrequency.moderate++
+            else if (tempo[i] <= 108) { // moderate
+                tempoFrequency.adante++
+            }
+            else if (tempo[i] <= 120) { // moderate
+                tempoFrequency.moderato++
+            }
+            else if (tempo[i] <= 168) { // moderate
+                tempoFrequency.allegro++
             }
             else { // fast
-                tempoFrequency.fast++
+                tempoFrequency.presto++
             }
         }
         // tempo = tempoFrequency;

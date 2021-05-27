@@ -2,7 +2,7 @@ import React, { Component, useState } from 'react';
 import '../styles/topsongs.css';
 import Carousel from 'react-bootstrap/Carousel';
 // import { Radar } from 'react-chartjs-2';
-import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer, FunnelChart, Tooltip, Funnel, LabelList, PieChart, Pie, Sector, Cell, } from 'recharts';
+import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer, FunnelChart, Tooltip, Funnel, LabelList, PieChart, Pie, Sector, Cell,RadialBarChart, RadialBar, Legend } from 'recharts';
 import DonutPieChart from './graphs/DonutPieChart';
 import VisibilitySensor from 'react-visibility-sensor';
 
@@ -103,32 +103,12 @@ const Graphs = (props) => {
         },
     ];
 
-
-    const funnelData = [
-        {
-          "value": props.songFeatures.maxDuration,
-          "name": "Max Duration",
-          "fill": "#FC766AFF",
-          "fillOpacity": "0.6"
-        },
-        {
-          "value": props.songFeatures.avgDuration,
-          "name": "Average Duration",
-          "fill": "#B0B8B4FF",
-          "fillOpacity": "0.6"
-        },
-        {
-          "value": props.songFeatures.minDuration,
-          "name": "Min Duration",
-          "fill": "#184A45FF",
-          "fillOpacity": "0.6"
-        }
-    ]
-
     const halfPieData = [
-        { name: 'Slow', value: props.tempo.slow },
-        { name: 'Moderate', value: props.tempo.moderate },
-        { name: 'Fast', value: props.tempo.fast },
+        { name: 'largo', value: props.tempo.largo, fill: '#8884d8' },
+        { name: 'adante', value: props.tempo.adante, fill: '#83a6ed' },
+        { name: 'moderato', value: props.tempo.moderato, fill: '#8dd1e1' },
+        { name: 'allegro', value: props.tempo.allegro, fill: '#82ca9d' },
+        { name: 'presto', value: props.tempo.presto, fill: '#a4de6c' },
     ];
 
     const pieData = [
@@ -151,6 +131,7 @@ const Graphs = (props) => {
       justifyContent: 'center',
       alignItems: 'center',
       height: '90vh',
+      borderStyle: "dotted"
     }
 
     const outerDiv = {
@@ -166,6 +147,10 @@ const Graphs = (props) => {
         padding: "3px"
     }
 
+    const style = {
+        lineHeight: "24px"
+      };
+
     return (
         <div style={songListStyle}>
 
@@ -173,11 +158,15 @@ const Graphs = (props) => {
                 onChange={(isVisible) => {
                     isVisible ? setTestData(radarData) : setTestData(dummyRadarData)
                     setVisibility(isVisible)
+                    console.log(document.getElementById("testingDiv"));
                 }}
+                // containment={document.getElementById("testingDiv")}  
                 partialVisibility={true}
+                // offset={{ top: 450, bottom: 800 }}
                 offset={{ top: 450, bottom: 800 }}
+                // offset={{ top: "0%", bottom: "0%"}}
             >   
-                <div style={graphStyle}>
+                <div id="testingDiv" style={graphStyle}>
                     <h2 style={{textAlign:"center"}}>Song Features</h2>
                     <h5 style={{textAlign:"center", color: "#C8C8C8"}}>Based on your top 50 songs.</h5>
                     <ResponsiveContainer width="100%" height="100%" >
@@ -191,22 +180,7 @@ const Graphs = (props) => {
                 </div>
             </VisibilitySensor>
 
-            <div style={graphStyle}>
-                <ResponsiveContainer width="100%" height="100%">
-                    <FunnelChart width={730} height={250}>
-                        <Tooltip />
-                        <Funnel
-                            dataKey="value"
-                            data={funnelData}
-                            isAnimationActive
-                        >
-                            <LabelList position="right" fill="white" stroke="none" dataKey="name" />
-                        </Funnel>
-                    </FunnelChart>
-                </ResponsiveContainer>
-            </div>
-            <div style={graphStyle}>
-                <ResponsiveContainer width="100%" height="100%">
+                {/* <ResponsiveContainer width="100%" height="100%">
                     <PieChart width={400} height={400}>
                     <Pie
                         dataKey="value"
@@ -217,13 +191,45 @@ const Graphs = (props) => {
                         cy="50%"
                         outerRadius={80}
                         fill="black"
-                        fillOpacity={0.5} 
                         label
                     />
                     <Tooltip />
                     </PieChart>
+                </ResponsiveContainer> */}
+            <div id="testingDiv" style={graphStyle}>
+            <div style={style}>
+                <ResponsiveContainer width="100%" height="100%">
+                    <RadialBarChart
+                    width={500}
+                    height={500}
+                    cx={150}
+                    cy={150}
+                    innerRadius={20}
+                    outerRadius={140}
+                    barSize={10}
+                    data={halfPieData}
+                    >
+                    <RadialBar
+                        minAngle={15}
+                        label={{ position: "insideStart", fill: "black" }}
+                        background
+                        clockWise
+                        dataKey="value"
+                    />
+                    <Tooltip />
+                    <Legend
+                        iconSize={10}
+                        width={120}
+                        height={140}
+                        layout="vertical"
+                        verticalAlign="middle"
+                        wrapperStyle={style}
+                    />
+                    </RadialBarChart>
                 </ResponsiveContainer>
             </div>
+            </div>
+
             <div style={outerDiv}>
                 <div style={innerDiv}>
                 <ResponsiveContainer width="100%" height="100%">
