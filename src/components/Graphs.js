@@ -1,13 +1,78 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import '../styles/topsongs.css';
 import Carousel from 'react-bootstrap/Carousel';
 // import { Radar } from 'react-chartjs-2';
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer, FunnelChart, Tooltip, Funnel, LabelList, PieChart, Pie, Sector, Cell, } from 'recharts';
 import DonutPieChart from './graphs/DonutPieChart';
+import VisibilitySensor from 'react-visibility-sensor';
 
 const Graphs = (props) => {
 
-    const radarData = [
+    const [visibility, setVisibility] = useState(false);
+
+    const [testData, setTestData] = useState([
+        {
+            subject: 'Acousticness',
+            A: 0,
+        },
+        {
+            subject: 'Danceability',
+            A: 0,
+        },
+        {
+            subject: 'Energy',
+            A: 0,
+        },
+        {
+            subject: 'Instrumentalness',
+            A: 0,
+        },
+        {
+            subject: 'Liveness',
+            A: 0,
+        },
+        {
+            subject: 'Valence',
+            A: 0,
+        },
+        {
+            subject: 'Speechiness',
+            A: 0,
+        },
+    ]);
+
+    let dummyRadarData = [
+        {
+            subject: 'Acousticness',
+            A: 0,
+        },
+        {
+            subject: 'Danceability',
+            A: 0,
+        },
+        {
+            subject: 'Energy',
+            A: 0,
+        },
+        {
+            subject: 'Instrumentalness',
+            A: 0,
+        },
+        {
+            subject: 'Liveness',
+            A: 0,
+        },
+        {
+            subject: 'Valence',
+            A: 0,
+        },
+        {
+            subject: 'Speechiness',
+            A: 0,
+        },
+    ];
+
+    let radarData = [
         {
             subject: 'Acousticness',
             A: props.songFeatures.acousticness,
@@ -85,7 +150,7 @@ const Graphs = (props) => {
       margin: "auto",
       justifyContent: 'center',
       alignItems: 'center',
-      height: '90vh'
+      height: '90vh',
     }
 
     const outerDiv = {
@@ -103,17 +168,28 @@ const Graphs = (props) => {
 
     return (
         <div style={songListStyle}>
-            {/* {console.log(props.tempo)} */}
-            <div style={graphStyle}>
-                <ResponsiveContainer width="100%" height="100%">
-                    <RadarChart cx="50%" cy="50%" outerRadius="80%" data={radarData}>
-                        <PolarGrid />
-                        <PolarAngleAxis dataKey="subject" stroke="#fff" />
-                        <PolarRadiusAxis angle={38.6} domain={[0, 1]} />
-                        <Radar name="Features" dataKey="A" stroke="#fff" fill="#fff" fillOpacity={0.4} />
-                    </RadarChart>
-                </ResponsiveContainer>
-            </div>
+
+            <VisibilitySensor
+                onChange={(isVisible) => {
+                    isVisible ? setTestData(radarData) : setTestData(dummyRadarData)
+                    setVisibility(isVisible)
+                }}
+                partialVisibility={true}
+                offset={{ top: 450, bottom: 800 }}
+            >   
+                <div style={graphStyle}>
+                    <h2 style={{textAlign:"center"}}>Song Features</h2>
+                    <h5 style={{textAlign:"center", color: "#C8C8C8"}}>Based on your top 50 songs.</h5>
+                    <ResponsiveContainer width="100%" height="100%" >
+                        <RadarChart cx="50%" cy="50%" outerRadius="80%" data={testData}> 
+                            <PolarGrid />
+                            <PolarAngleAxis dataKey="subject" stroke="#fff" />
+                            <PolarRadiusAxis angle={38.6} domain={[0, 1]} />
+                            <Radar name="Features" dataKey="A" stroke="#fff" fill="#fff" fillOpacity={0.4}  />
+                        </RadarChart>
+                    </ResponsiveContainer>
+                </div>
+            </VisibilitySensor>
 
             <div style={graphStyle}>
                 <ResponsiveContainer width="100%" height="100%">

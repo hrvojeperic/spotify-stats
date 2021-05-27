@@ -56,6 +56,13 @@ const Login = (props) => {
         verticalAlign: "middle"
     }
 
+    const signOutContainer = {
+        width: "100%",
+        display: "flex",
+        justifyContent: "center",
+        paddingTop: "50px"
+    }
+
     return (
         <div style={songListStyle}>
             <div style={innerContainer}>
@@ -68,6 +75,9 @@ const Login = (props) => {
                         <img style={logoStyle} src={spotifyIcon} />
                         <span style={buttonTextStyle}>Get Started</span>
                     </button>
+                </div>
+                <div style={signOutContainer}>
+                    {props.isSignOut ? <h3 style={{color: "#C8C8C8"}}>Successfully Signed Out</h3> : null}
                 </div>
             </div>
         </div>

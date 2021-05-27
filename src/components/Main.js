@@ -18,7 +18,8 @@ class Main extends Component {
         accessToken: "",
         tokenType: "",
         expiresIn: "",
-        data: {}
+        data: {},
+        isSignOut: false
     }
 
     componentDidMount() {
@@ -62,12 +63,20 @@ class Main extends Component {
         return splitHashMore;
     }
 
+    handleSignout = () => {
+        this.setState({
+            visible: true,
+            isSignOut: true
+        })
+        return null;
+    }
+
     render() {
         return (
             <div>
                 {!this.state.visible ? 
                 <>
-                <Router>
+                <Router> 
                     <Navbar/>
                     <Switch>
                         <Route path='/' exact component={Stats} />
@@ -87,8 +96,11 @@ class Main extends Component {
                     <Switch>
                         <Route path='/visuals' exact component={Stats} />
                     </Switch>
+                    <Switch>
+                        <Route path='/sign-out' exact component={() => this.handleSignout()} />
+                    </Switch>
                 </Router>
-                </> : <Login login={() => this.handleLogin()}/>}
+                </> : <Login login={() => this.handleLogin()} isSignOut={this.state.isSignOut}/>}
             </div>
         );
     }
