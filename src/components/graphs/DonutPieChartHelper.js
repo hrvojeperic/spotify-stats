@@ -1,5 +1,5 @@
-import React, { useCallback, useState } from "react";
-import { PieChart, Pie, Sector } from "recharts";
+import React from "react";
+import { Sector } from "recharts";
 
 const renderActiveShape = (props) => {
     const RADIAN = Math.PI / 180;

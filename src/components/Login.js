@@ -1,8 +1,6 @@
-import React, { Component } from 'react';
-import Stats from './Stats';
-import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+import React from 'react';
 import '../styles/login.css';
-import spotifyIcon from './spotify_logo.png';
+import spotifyIcon from '../images/spotify_logo.png';
 
 const Login = (props) => {
 
@@ -72,7 +70,7 @@ const Login = (props) => {
                 </div>
                 <div style={buttonContainer}>
                     <button className="button" onClick={props.login}>
-                        <img style={logoStyle} src={spotifyIcon} />
+                        <img style={logoStyle} src={spotifyIcon} alt={"Spotify Icon"}/>
                         <span style={buttonTextStyle}>Get Started</span>
                     </button>
                 </div>

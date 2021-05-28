@@ -1,9 +1,8 @@
-import React, { Component, useState } from 'react';
+import React, { useState } from 'react';
 import '../styles/topsongs.css';
-import Carousel from 'react-bootstrap/Carousel';
 // import { Radar } from 'react-chartjs-2';
-import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer, FunnelChart, Tooltip, Funnel, LabelList, PieChart, Pie, Sector, Cell,RadialBarChart, RadialBar, Legend } from 'recharts';
-import DonutPieChart from './graphs/DonutPieChart';
+import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer, Tooltip, LabelList, PieChart, Pie, Sector, Cell,RadialBarChart, RadialBar, Legend } from 'recharts';
+import DonutPieChart from '../components/graphs/DonutPieChart';
 import VisibilitySensor from 'react-visibility-sensor';
 
 const Graphs = (props) => {

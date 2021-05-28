@@ -1,9 +1,6 @@
-import React, { Component } from 'react';
-import '../styles/topsongs.css';
-import Carousel from 'react-bootstrap/Carousel';
-import Image from 'react-bootstrap/Image';
+import React from 'react';
 
-const TopSongs = (props) => {
+const TopRecommendations = (props) => {
 
     const songListStyle = {
         color: "#fff",
@@ -65,15 +62,15 @@ const TopSongs = (props) => {
     return (
         <div style={songListStyle} >
                 {[...Array(10)].map((x, i) =>
-                    <div style={songStyle}>
+                    <div key={i} style={songStyle}>
                         <div style={photoStyle}>
                             <div style={photoInnerStyle}>
-                                <img src={props.topSongImages[i]} style={imageStyle} />
+                                <img src={props.topRecommendationsImages[i]} alt={"album"} style={imageStyle} />
                             </div>
                         </div>
-                        <div style={nameStyle} >
-                            <h3>{props.topSongNames[i]}</h3>
-                            <h3 style={subHeaderStyle}>By {props.topSongArtistName[i]}</h3>
+                        <div style={nameStyle}>
+                            <h3>{props.topRecommendations[i]}</h3>
+                            <h3 style={subHeaderStyle}>By {props.topRecommendationsArtistName[i]}</h3>
                         </div>
                     </div>
                 )}
@@ -81,4 +78,4 @@ const TopSongs = (props) => {
     );
 }
 
-export default TopSongs;
+export default TopRecommendations;

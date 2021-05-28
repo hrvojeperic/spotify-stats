@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from "react";
-import { PieChart, Pie, Sector } from "recharts";
+import { PieChart, Pie } from "recharts";
 import renderActiveShape from "./DonutPieChartHelper";
 
 const makeData = (timeSignatures) => {
