@@ -3,3 +3,50 @@
     width: 100%;
     position: absolute;
 }
+
+/* .outerContainer {
+    width: 100%;
+    background: linear-gradient(#000000 0%, #0f6c30 40%, #1ed760 100%);
+}
+
+
+.container {
+    display: table;
+    height: 500px;
+    width: 100%;
+    text-align: center;
+    border: 2px dashed #f69c55;
+  }
+.item {
+    display: table-cell;
+    vertical-align: middle;
+    margin: 0 auto;
+} */
+
+.banner {
+	padding-top: 10px;
+    padding-bottom: 10px;
+	color: white;
+	height: 100%;
+    width: 100%;
+    background: linear-gradient(#000000 0%, #0f6c30 40%, #1ed760 100%);
+}
+
+.banner-align {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  border:1px solid green;
+}
+
+.banner-align > * {
+  flex: 0 0 100%;
+}
+
+.banner-hero {
+  border:1px solid red;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}

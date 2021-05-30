@@ -45,8 +45,7 @@ const TopArtists = (props) => {
         background: "gray",
         width: "150px",
         height: "150px",
-        borderRadius: "50%",
-        backgroundColor:"black"
+        borderRadius: "50%"
     }
 
     const photoInnerStyle = {

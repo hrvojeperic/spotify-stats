@@ -23,7 +23,6 @@ class Main extends Component {
         expiresIn: "",
         data: {},
         isSignOut: false,
-
         userName: "",
         followers: 0,
         userImage: "",
@@ -42,7 +41,8 @@ class Main extends Component {
         topRecommendationsArtistName: [],
         songFeatures: {},
         timeSignatures: {},
-        tempo: {}
+        tempo: {},
+        treeMapData: {}
     }
 
     componentDidMount() {
@@ -185,6 +185,7 @@ class Main extends Component {
         }, () => {
             this.isSongUpdateDone = true;
             this.showRecommendations();
+            this.setTreeMapData(this.state.topSongArtistName);
         });
         requests.getSongFeatures(this.state.topSongID, this._showTopSongFeaturesCallback, this._errorCallback);
     }
@@ -320,7 +321,7 @@ class Main extends Component {
                 songIDs.push(this.state.topSongID[i]);
             }
             requests.getRecommendations(artistIDs, songIDs, this._showRecommendationsCallback, this._errorCallback);
-        } 
+        }
         
     }
 
@@ -340,57 +341,75 @@ class Main extends Component {
         })
     }
 
-
     _errorCallback = () => {
         // TODO: handle API errors on UI
+    }
+
+    setTreeMapData = (topSongArtistName) => {
+        // console.log(topSongArtistName)
+        var occurrences = {};
+        for (var i = 0, j = topSongArtistName.length; i < j; i++) {
+            occurrences[topSongArtistName[i]] = (occurrences[topSongArtistName[i]] || 0) + 1;
+        }
+        // console.log(occurrences)
+        this.setState({
+            treeMapData: occurrences
+        });
     }
 
     handleHome = () => {
         if (this.state.isDataRetrieved === false) {
             this.setState({
                 isDataRetrieved: true
-            })
+            });
             this.showUserProfile();
             this.showTopSongs();
             this.showTopArtists();
             this.showRecommendations();
         }
         return <Home 
-        userName={this.state.userName}
-        followers={this.state.followers}
-        userImage={this.state.userImage}/>;
+                    userName={this.state.userName}
+                    followers={this.state.followers}
+                    userImage={this.state.userImage}
+                />;
     }
 
     handleTopSongs = () => {
         return <TopSongs 
-        topSongNames={this.state.topSongNames}
-        topSongImages={this.state.topSongImages}
-        topSongArtistName={this.state.topSongArtistName}/>;
+                    topSongNames={this.state.topSongNames}
+                    topSongImages={this.state.topSongImages}
+                    topSongArtistName={this.state.topSongArtistName}
+                />;
     }
 
     handleTopArtists = () => {
         return <TopArtists 
-        topArtistNames={this.state.topArtistNames}
-        topArtistImages={this.state.topArtistImages}
-        topArtistFollowers={this.state.topArtistFollowers}/>;
+                    topArtistNames={this.state.topArtistNames}
+                    topArtistImages={this.state.topArtistImages}
+                    topArtistFollowers={this.state.topArtistFollowers}
+                />;
     }
 
     handleTopGenres = () => {
         return <TopGenres 
-        topGenres={this.state.topGenres}/>;
+                    topGenres={this.state.topGenres}
+                />;
     }
 
     handleRecommendations = () => {
         return <TopRecommendations 
-        topRecommendations={this.state.topRecommendations}
-        topRecommendationsImages={this.state.topRecommendationsImages}
-        topRecommendationsArtistName={this.state.topRecommendationsArtistName}/>;
+                    topRecommendations={this.state.topRecommendations}
+                    topRecommendationsImages={this.state.topRecommendationsImages}
+                    topRecommendationsArtistName={this.state.topRecommendationsArtistName}
+                />;
     }
 
     handleVisuals = () => {
         return <Graphs 
-        songFeatures={this.state.songFeatures}
-        tempo={this.state.tempo != null ? this.state.tempo : {}}/>;
+                    songFeatures={this.state.songFeatures}
+                    tempo={this.state.tempo != null ? this.state.tempo : {}}
+                    treeMapData={this.state.treeMapData}
+                />;
     }
 
     render() {
