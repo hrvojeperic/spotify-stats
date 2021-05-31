@@ -16,30 +16,30 @@ export const Navbar = () => {
     return (
         <>
             <Nav>
-                <NavLink to="/">
+                <NavLink to="/spotify-stats">
                     <h1 style={headerStyle1}>Spotify</h1>
                     <h1 style={headerStyle2}>Stats</h1>
                 </NavLink>
                 <Bars></Bars>
                 <NavMenu>
-                    <NavLink to="/top-songs" activeStyle>
+                    <NavLink to="/spotify-stats/top-songs" activeStyle>
                         Top Songs
                     </NavLink>
-                    <NavLink to="/top-artists" activeStyle>
+                    <NavLink to="/spotify-stats/top-artists" activeStyle>
                         Top Artists
                     </NavLink>
-                    <NavLink to="/top-genres" activeStyle>
+                    <NavLink to="/spotify-stats/top-genres" activeStyle>
                         Top Genres
                     </NavLink>
-                    <NavLink to="/recommendations" activeStyle>
+                    <NavLink to="/spotify-stats/recommendations" activeStyle>
                         Recommendations
                     </NavLink>
-                    <NavLink to="/visuals" activeStyle>
+                    <NavLink to="/spotify-stats/visuals" activeStyle>
                         Visuals
                     </NavLink>
                 </NavMenu>
                 <NavBtn>
-                    <NavBtnLink to='/sign-out'>Sign Out</NavBtnLink>
+                    <NavBtnLink to='/spotify-stats/sign-out'>Sign Out</NavBtnLink>
                 </NavBtn>
             </Nav>
         </>

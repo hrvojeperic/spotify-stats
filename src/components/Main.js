@@ -69,6 +69,7 @@ class Main extends Component {
         const RESPONSE_TYPE = "token";
         const SHOW_DIALOG = "true";
         const REDIRECT_URI = "https://hrvojeperic.github.io/spotify-stats/";
+        // const REDIRECT_URI = "http://localhost:3000/spotify-stats/";
         const SCOPE = ["user-top-read", "playlist-read-private"];
         const DELIMINATOR = "%20";
         const SCOPE_PARAM = SCOPE.join(DELIMINATOR);
@@ -442,25 +443,25 @@ class Main extends Component {
                 <Router> 
                     <Navbar/>
                     <Switch>
-                        <Route path='/' exact component={() => this.handleHome()} />
+                        <Route path='/spotify-stats' exact component={() => this.handleHome()} />
                     </Switch>
                     <Switch>
-                        <Route path='/top-songs' exact component={() => this.handleTopSongs()} />
+                        <Route path='/spotify-stats/top-songs' exact component={() => this.handleTopSongs()} />
                     </Switch>
                     <Switch>
-                        <Route path='/top-artists' exact component={() => this.handleTopArtists()} />
+                        <Route path='/spotify-stats/top-artists' exact component={() => this.handleTopArtists()} />
                     </Switch>
                     <Switch>
-                        <Route path='/top-genres' exact component={() => this.handleTopGenres()} />
+                        <Route path='/spotify-stats/top-genres' exact component={() => this.handleTopGenres()} />
                     </Switch>
                     <Switch>
-                        <Route path='/recommendations' exact component={() => this.handleRecommendations()} />
+                        <Route path='/spotify-stats/recommendations' exact component={() => this.handleRecommendations()} />
                     </Switch>
                     <Switch>
-                        <Route path='/visuals' exact component={() => this.handleVisuals()} />
+                        <Route path='/spotify-stats/visuals' exact component={() => this.handleVisuals()} />
                     </Switch>
                     <Switch>
-                        <Route path='/sign-out' exact component={() => this.handleSignout()} />
+                        <Route path='/spotify-stats/sign-out' exact component={() => this.handleSignout()} />
                     </Switch>
                 </Router>
                 </> 
