@@ -37,7 +37,7 @@
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  border:1px solid green;
+  /* border:1px solid green; */
 }
 
 .banner-align > * {
@@ -45,8 +45,11 @@
 }
 
 .banner-hero {
-  border:1px solid red;
+  /* border:1px solid red; */
   text-align: center;
   display: flex;
   justify-content: center;
+
+  padding-bottom: 30px;
+  padding-top: 30px;
 }
