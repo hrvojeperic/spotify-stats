@@ -61,6 +61,11 @@ const Login = (props) => {
         paddingTop: "50px"
     }
 
+    const sampleAccountContainer = {
+        textAlign: "center",
+        paddingTop:"20px",
+    }
+
     return (
         <div style={songListStyle}>
             <div style={innerContainer}>
@@ -73,6 +78,9 @@ const Login = (props) => {
                         <img style={logoStyle} src={spotifyIcon} alt={"Spotify Icon"}/>
                         <span style={buttonTextStyle}>Get Started</span>
                     </button>
+                </div>
+                <div style={sampleAccountContainer}>
+                    <a style={{color: "white"}} href="url" onClick={props.sample}>Don't have a Spotify account? Use this sample account.</a>
                 </div>
                 <div style={signOutContainer}>
                     {props.isSignOut ? <h3 style={{color: "#C8C8C8"}}>Successfully Signed Out</h3> : null}

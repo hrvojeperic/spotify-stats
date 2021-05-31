@@ -68,8 +68,8 @@ class Main extends Component {
         const CLIENT_ID = "f6914647e144472a9946eba5f87d9721";
         const RESPONSE_TYPE = "token";
         const SHOW_DIALOG = "true";
-        const REDIRECT_URI = "https://hrvojeperic.github.io/spotify-stats/";
-        // const REDIRECT_URI = "http://localhost:3000/spotify-stats/";
+        // const REDIRECT_URI = "https://hrvojeperic.github.io/spotify-stats/";
+        const REDIRECT_URI = "http://localhost:3000/spotify-stats/";
         const SCOPE = ["user-top-read", "playlist-read-private"];
         const DELIMINATOR = "%20";
         const SCOPE_PARAM = SCOPE.join(DELIMINATOR);
@@ -435,6 +435,10 @@ class Main extends Component {
                 />;
     }
 
+    handleSampleAccount = () => {
+        
+    }
+
     render() {
         return (
             <div>
@@ -466,7 +470,7 @@ class Main extends Component {
                 </Router>
                 </> 
                 : this.state.isNoData ? <Login login={() => this.handleLogin()} isNoData={this.state.isNoData}/>
-                : <Login login={() => this.handleLogin()} isSignOut={this.state.isSignOut}/>}
+                : <Login login={() => this.handleLogin()} sample={() => this.handleSampleAccount()} isSignOut={this.state.isSignOut}/>}
             </div>
         );
     }
