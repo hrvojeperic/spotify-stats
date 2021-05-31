@@ -76,6 +76,7 @@ const Login = (props) => {
                 </div>
                 <div style={signOutContainer}>
                     {props.isSignOut ? <h3 style={{color: "#C8C8C8"}}>Successfully Signed Out</h3> : null}
+                    {props.isNoData ? <h3 style={{color: "#C8C8C8"}}>Insufficient data in your spotify account.</h3> : null}
                 </div>
             </div>
         </div>

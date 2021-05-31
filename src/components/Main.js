@@ -42,7 +42,8 @@ class Main extends Component {
         songFeatures: {},
         timeSignatures: {},
         tempo: {},
-        treeMapData: {}
+        treeMapData: {},
+        isNoData: false
     }
 
     componentDidMount() {
@@ -122,34 +123,41 @@ class Main extends Component {
         let id = [];
         let genres = [];
         let followers = [];
-        for(let i = 0; i < data.items.length; i++) {
-            if (data.items[i].name != null) { // null checking
-                name.push(data.items[i].name);
-            }
-            else {
-                name.push("Unknown");
-            }
-            if (data.items[i].images != null) { // null checking
-                image.push(data.items[i].images[0].url);
-            }
-            else {
-                // TODO: Push default artist image for null images
-            }
-            id.push(data.items[i].id);
-            genres.push(...data.items[i].genres);
-            followers.push(data.items[i].followers.total);
+        if (data.items.length === 0) { // no data
+            this.setState({
+                isNoData: true
+            })
         }
-        const calculatedTopGenres = this.calculateTopGenres(genres);
-        this.setState({
-            topArtistNames: name,
-            topArtistImages: image,
-            topArtistID: id,
-            topArtistFollowers: followers,
-            topGenres: calculatedTopGenres
-        }, () => {
-            this.isArtistUpdateDone = true;
-            this.showRecommendations(); 
-        });
+        else {
+            for(let i = 0; i < data.items.length; i++) {
+                if (data.items[i].name != null) { // null checking
+                    name.push(data.items[i].name);
+                }
+                else {
+                    name.push("Unknown");
+                }
+                if (data.items[i].images != null) { // null checking
+                    image.push(data.items[i].images[0].url);
+                }
+                else {
+                    // TODO: Push default artist image for null images
+                }
+                id.push(data.items[i].id);
+                genres.push(...data.items[i].genres);
+                followers.push(data.items[i].followers.total);
+            }
+            const calculatedTopGenres = this.calculateTopGenres(genres);
+            this.setState({
+                topArtistNames: name,
+                topArtistImages: image,
+                topArtistID: id,
+                topArtistFollowers: followers,
+                topGenres: calculatedTopGenres
+            }, () => {
+                this.isArtistUpdateDone = true;
+                this.showRecommendations(); 
+            });
+        }
     }
 
     showTopSongs = () => {
@@ -161,33 +169,40 @@ class Main extends Component {
         let image = [];
         let id = [];
         let artistName = [];
-        for(let i = 0; i < data.items.length; i++) {
-            if (data.items[i].name != null) { // null checking
-                name.push(data.items[i].name);      
-            }
-            else {
-                name.push("Unknown");
-            }
-            if (data.items[i].album.images != null) { // null checking
-                image.push(data.items[i].album.images[0].url);
-            }
-            else {
-                // TODO: Push default song image for null images
-            }
-            id.push(data.items[i].id);
-            artistName.push(data.items[i].album.artists[0].name);
+        if (data.items.length === 0) { // no data
+            this.setState({
+                isNoData: true
+            })
         }
-        this.setState({
-            topSongNames: name,
-            topSongImages: image,
-            topSongID: id,
-            topSongArtistName: artistName
-        }, () => {
-            this.isSongUpdateDone = true;
-            this.showRecommendations();
-            this.setTreeMapData(this.state.topSongArtistName);
-        });
-        requests.getSongFeatures(this.state.topSongID, this._showTopSongFeaturesCallback, this._errorCallback);
+        else {
+            for(let i = 0; i < data.items.length; i++) {
+                if (data.items[i].name != null) { // null checking
+                    name.push(data.items[i].name);      
+                }
+                else {
+                    name.push("Unknown");
+                }
+                if (data.items[i].album.images != null) { // null checking
+                    image.push(data.items[i].album.images[0].url);
+                }
+                else {
+                    // TODO: Push default song image for null images
+                }
+                id.push(data.items[i].id);
+                artistName.push(data.items[i].album.artists[0].name);
+            }
+            this.setState({
+                topSongNames: name,
+                topSongImages: image,
+                topSongID: id,
+                topSongArtistName: artistName
+            }, () => {
+                this.isSongUpdateDone = true;
+                this.showRecommendations();
+                this.setTreeMapData(this.state.topSongArtistName);
+            });
+            requests.getSongFeatures(this.state.topSongID, this._showTopSongFeaturesCallback, this._errorCallback);
+        }
     }
 
     _showTopSongFeaturesCallback = (data) => {
@@ -294,7 +309,7 @@ class Main extends Component {
         for (var i = 0, j = genres.length; i < j; i++) {
             occurrences[genres[i]] = (occurrences[genres[i]] || 0) + 1;
         }
-        // console.log(occurrences);
+        console.log(genres);
         let num = 10;
         let sortedTopGenres = [];
         if(num > Object.keys(occurrences).length){
@@ -306,7 +321,7 @@ class Main extends Component {
                 sortedTopGenres.push(key);
             }
         });
-        // console.log(sortedTopGenres);
+        console.log(sortedTopGenres);
         return sortedTopGenres;
     }
 
@@ -329,16 +344,23 @@ class Main extends Component {
         let songs = [];
         let images = [];
         let artistName = [];
-        for(let i = 0; i < data.tracks.length; i++) {
-            songs.push(data.tracks[i].name);
-            images.push(data.tracks[i].album.images[0].url);
-            artistName.push(data.tracks[i].artists[0].name);
+        if (data.tracks.length === 0) { // no data
+            this.setState({
+                isNoData: true
+            })
         }
-        this.setState({
-            topRecommendations: songs,
-            topRecommendationsImages: images,
-            topRecommendationsArtistName: artistName
-        })
+        else {
+            for(let i = 0; i < data.tracks.length; i++) {
+                songs.push(data.tracks[i].name);
+                images.push(data.tracks[i].album.images[0].url);
+                artistName.push(data.tracks[i].artists[0].name);
+            }
+            this.setState({
+                topRecommendations: songs,
+                topRecommendationsImages: images,
+                topRecommendationsArtistName: artistName
+            })
+        }
     }
 
     _errorCallback = () => {
@@ -415,7 +437,7 @@ class Main extends Component {
     render() {
         return (
             <div>
-                {!this.state.visible ? 
+                {!this.state.visible && !this.state.isNoData ? 
                 <>
                 <Router> 
                     <Navbar/>
@@ -441,7 +463,9 @@ class Main extends Component {
                         <Route path='/sign-out' exact component={() => this.handleSignout()} />
                     </Switch>
                 </Router>
-                </> : <Login login={() => this.handleLogin()} isSignOut={this.state.isSignOut}/>}
+                </> 
+                : this.state.isNoData ? <Login login={() => this.handleLogin()} isNoData={this.state.isNoData}/>
+                : <Login login={() => this.handleLogin()} isSignOut={this.state.isSignOut}/>}
             </div>
         );
     }
