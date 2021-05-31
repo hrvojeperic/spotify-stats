@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import '../styles/topsongs.css';
 import '../styles/graph.css';
 // import { Radar } from 'react-chartjs-2';
-import { Treemap, BarChart, Bar, CartesianGrid, XAxis, YAxis, Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer, Tooltip, LabelList, PieChart, Pie, Sector, Cell,RadialBarChart, RadialBar, Legend } from 'recharts';
+import { Treemap, BarChart, Bar, XAxis, YAxis, Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer, Tooltip, LabelList, PieChart, Pie, Sector, Cell,RadialBarChart, RadialBar, Legend } from 'recharts';
 import VisibilitySensor from 'react-visibility-sensor';
 
 
@@ -203,21 +203,18 @@ const Graphs = (props) => {
 
     return (
 
-        <div class="banner">
-            <div class="container banner-align">
+        <div className="banner">
+            <div className="container banner-align">
                 
                 {/* radar chart */}
-                <div class="banner-hero">
+                <div className="banner-hero">
                     <VisibilitySensor
                         onChange={(isVisible) => {
                         isVisible ? setActualRadarData(radarData) : setActualRadarData(dummyRadarData)
                         setVisibility(isVisible)
                         }}
-                        // containment={document.getElementById("testingDiv")}  
                         partialVisibility={true}
-                        // offset={{ top: 450, bottom: 800 }}
                         offset={{ top: 450, }}
-                        // offset={{ top: "0%", bottom: "0%"}}
                     >
                         <div style={graphStyle}>
                             <h2 style={{textAlign:"center"}}>Features</h2>
@@ -287,7 +284,7 @@ const Graphs = (props) => {
                 </div> */}
                 
                 {/* bar chart */}
-                <div class="banner-hero">
+                <div className="banner-hero">
                     <VisibilitySensor
                         onChange={(isVisible) => {
                         isVisible ? setActualBarData(barData) : setActualBarData(dummyBarData)
@@ -314,7 +311,7 @@ const Graphs = (props) => {
                 </div>
                 
                 {/* tree chart */}
-                <div class="banner-hero">
+                <div className="banner-hero">
                     <div style={graphStyle}>
                         <div style={titleStyle}>
                             <h2 style={{textAlign:"center"}}>Artists</h2>

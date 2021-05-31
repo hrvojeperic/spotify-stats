@@ -7,6 +7,7 @@ export const Home = (props) => {
         width: "100%",
         background: "linear-gradient(#000000 0%, #0f6c30 40%, #1ed760 100%)",
         height: "100vh",
+        // height: "calc((100vw - 142px) / 2",
         margin: "auto",
         position: "absolute",
     }
@@ -48,7 +49,7 @@ export const Home = (props) => {
         
             <div style={songStyle}>
                 <div style={photoStyle}>
-                    <img src={props.userImage} alt={"profile"} style={imageStyle}  />
+                    <img src={props.userImage} alt={"Profile"} style={imageStyle}  />
                 </div>
                 <div style={nameStyle}>
                 <h3>{props.userName}</h3>
