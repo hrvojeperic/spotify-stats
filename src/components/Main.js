@@ -68,7 +68,7 @@ class Main extends Component {
         const CLIENT_ID = "f6914647e144472a9946eba5f87d9721";
         const RESPONSE_TYPE = "token";
         const SHOW_DIALOG = "true";
-        const REDIRECT_URI = "http://localhost:3000/";
+        const REDIRECT_URI = "https://hrvojeperic.github.io/spotify-stats/";
         const SCOPE = ["user-top-read", "playlist-read-private"];
         const DELIMINATOR = "%20";
         const SCOPE_PARAM = SCOPE.join(DELIMINATOR);
