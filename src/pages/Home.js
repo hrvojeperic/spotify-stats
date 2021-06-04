@@ -46,7 +46,7 @@ export const Home = (props) => {
     return (
         
         <div style={songListStyle} >
-        
+            {console.log("HOME")}
             <div style={songStyle}>
                 <div style={photoStyle}>
                     <img src={props.userImage} alt={"Profile"} style={imageStyle}  />

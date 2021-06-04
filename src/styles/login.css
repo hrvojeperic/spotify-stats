@@ -18,3 +18,14 @@
     color: #010606;
     text-decoration: none;
 }
+
+.sampleTitle {
+    color: "white";
+}
+
+.sampleTitle:hover {
+    transition: all 0.2s ease-in-out;
+    text-decoration: underline;
+    cursor:pointer;
+    word-wrap:break-word;
+}

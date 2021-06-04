@@ -10,6 +10,19 @@ import TopRecommendations from '../pages/TopRecommendations';
 import Graphs from '../pages/Graphs';
 import requests from '../utilities/requests';
 import defaultIcon from '../images/default_image.jpg';
+import acdcImage from '../images/acdc.jpg';
+import chuckBerryImage from '../images/chuck_berry.jpg';
+import ledZeppelinImage from '../images/led_zeppelin.jpg';
+import aviciiImage from '../images/avicii.jpg';
+import blink182Image from '../images/blink_182.jpg';
+import whiteStripesImage from '../images/white_stripes.jpg';
+import theSmashingPumpkinsImage from '../images/the_smashing_pumpkins.jpg';
+import u2Image from '../images/u2.jpg';
+import theRollingStonesImage from '../images/rolling_stones.jpg';
+import calvinHarrisImage from '../images/calvin_harris.jpg';
+import duaLipaImage from '../images/dua_lipa.jpg';
+import hardwellImage from '../images/hardwell.jpg';
+import marshmelloImage from '../images/marshmello.jpg';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 class Main extends Component {
@@ -43,7 +56,8 @@ class Main extends Component {
         timeSignatures: {},
         tempo: {},
         treeMapData: {},
-        isNoData: false
+        isNoData: false,
+        isSampleAccount: false
     }
 
     componentDidMount() {
@@ -381,7 +395,7 @@ class Main extends Component {
     }
 
     handleHome = () => {
-        if (this.state.isDataRetrieved === false) {
+        if (this.state.isDataRetrieved === false && this.state.isSampleAccount === false) {
             this.setState({
                 isDataRetrieved: true
             });
@@ -397,7 +411,7 @@ class Main extends Component {
                 />;
     }
 
-    handleTopSongs = () => {
+    handleTopSongs = () => {      
         return <TopSongs 
                     topSongNames={this.state.topSongNames}
                     topSongImages={this.state.topSongImages}
@@ -414,13 +428,13 @@ class Main extends Component {
     }
 
     handleTopGenres = () => {
-        return <TopGenres 
+        return <TopGenres
                     topGenres={this.state.topGenres}
                 />;
     }
 
     handleRecommendations = () => {
-        return <TopRecommendations 
+        return <TopRecommendations
                     topRecommendations={this.state.topRecommendations}
                     topRecommendationsImages={this.state.topRecommendationsImages}
                     topRecommendationsArtistName={this.state.topRecommendationsArtistName}
@@ -428,7 +442,7 @@ class Main extends Component {
     }
 
     handleVisuals = () => {
-        return <Graphs 
+        return <Graphs
                     songFeatures={this.state.songFeatures}
                     tempo={this.state.tempo != null ? this.state.tempo : {}}
                     treeMapData={this.state.treeMapData}
@@ -436,7 +450,49 @@ class Main extends Component {
     }
 
     handleSampleAccount = () => {
-        
+        // TO DO 
+        // Create sample data
+        this.setState({
+            isSampleAccount: true,
+            visible: false,
+
+            userName: "Joey",
+            followers: 7,
+            userImage: defaultIcon,
+
+            topSongNames: ["Wake Me Up", "Ramble On", "Back In Black", "1979", "Stairway To Heaven", "Go Johnny Go", "Whole Lotta Love", "Seven Nation Army", "I Miss You", "What's My Age Again?"],
+            topSongImages: [aviciiImage, ledZeppelinImage, acdcImage, theSmashingPumpkinsImage, ledZeppelinImage, chuckBerryImage, ledZeppelinImage, whiteStripesImage, blink182Image, blink182Image],
+            topSongArtistName: ["Avicii", "Led Zeppelin", "AC/DC", "The Smashing Pumpkins", "Led Zeppelin", "Chuck Berry", "Led Zeppelin", "The White Stripes", "Blink-182", "Blink-182"],
+
+            topArtistNames: ["Led Zeppelin", "Blink-182", "Avicii", "AC/DC", "U2", "The Rolling Stones", "Calvin Harris", "Dua Lipa", "Marshmello", "Hardwell"],
+            topArtistImages: [ledZeppelinImage, blink182Image, aviciiImage, acdcImage, u2Image, theRollingStonesImage, calvinHarrisImage, duaLipaImage, marshmelloImage, hardwellImage],
+            topArtistFollowers: [],
+
+            topGenres: ["rock", "classic rock", "punk rock", "electronic dance music", "pop", "hard rock", "dance", "house", "alternative rock", "hip hop"],
+            
+            topRecommendations: [],
+            topRecommendationsImages: [],
+            topRecommendationsArtistName: [],
+
+            songFeatures: {
+                "acousticness": 0.1,
+                "danceability": 0.6,
+                "energy": 0.8,
+                "instrumentalness": 0.4,
+                "liveness": 0.8,
+                "valence": 0.6,
+                "speechiness": 0.4,
+                "minDuration": 2,
+                "maxDuration": 6,
+                "avgDuration": 3,
+                "timeSignatures": null
+            },
+            tempo: {largo: 1, adante: 10, moderato: 20, allegro: 15, presto: 5},
+            treeMapData: {"Led Zeppelin": 10, "Blink-182": 5, "Avicii": 6, "AC/DC": 2, "U2": 1, "The Rolling Stones": 1, "Calvin Harris":5 , "Dua Lipa": 2, "Marshmello": 4, 
+                            "Hardwell":2, "Drake":1, "Kanye West":1, "Sia": 2, "Kygo":1, "Divine Fits": 1, "Louis The Child": 2, "Crogotti": 2, "The Smashing Pumpkins":1, 
+                            "The White Stripes":1}
+        });
+
     }
 
     render() {

@@ -80,7 +80,7 @@ const Login = (props) => {
                     </button>
                 </div>
                 <div style={sampleAccountContainer}>
-                    <a style={{color: "white"}} href="url" onClick={props.sample}>Don't have a Spotify account? Use this sample account.</a>
+                    <h6 className="sampleTitle" onClick={props.sample}>Don't have a Spotify account? Use this sample account.</h6>
                 </div>
                 <div style={signOutContainer}>
                     {props.isSignOut ? <h3 style={{color: "#C8C8C8"}}>Successfully Signed Out</h3> : null}
