@@ -23,6 +23,13 @@ import calvinHarrisImage from '../images/calvin_harris.jpg';
 import duaLipaImage from '../images/dua_lipa.jpg';
 import hardwellImage from '../images/hardwell.jpg';
 import marshmelloImage from '../images/marshmello.jpg';
+import deorroImage from '../images/deorro.jpg';
+import divineFitsImage from '../images/divine_fits.jpg';
+import gunNRosesImage from '../images/guns_n_roses.jpg';
+import kidCudiImage from '../images/kid_cudi.jpg';
+import mgmtImage from '../images/mgmt.jpg';
+import modestMouseImage from '../images/modest_mouse.jpg';
+import swedishHouseMafiaImage from '../images/swedish_house_mafia.jpg';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 class Main extends Component {
@@ -383,12 +390,10 @@ class Main extends Component {
     }
 
     setTreeMapData = (topSongArtistName) => {
-        // console.log(topSongArtistName)
         var occurrences = {};
         for (var i = 0, j = topSongArtistName.length; i < j; i++) {
             occurrences[topSongArtistName[i]] = (occurrences[topSongArtistName[i]] || 0) + 1;
         }
-        // console.log(occurrences)
         this.setState({
             treeMapData: occurrences
         });
@@ -450,7 +455,6 @@ class Main extends Component {
     }
 
     handleSampleAccount = () => {
-        // TO DO 
         // Create sample data
         this.setState({
             isSampleAccount: true,
@@ -470,9 +474,11 @@ class Main extends Component {
 
             topGenres: ["rock", "classic rock", "punk rock", "electronic dance music", "pop", "hard rock", "dance", "house", "alternative rock", "hip hop"],
             
-            topRecommendations: [],
-            topRecommendationsImages: [],
-            topRecommendationsArtistName: [],
+            topRecommendations: ["Alone", "Slide", "Fool in the Rain", "Would That Not Be Nice", "Electric Feel", "Five Hours", "Welcome To The Jungle", "Float On", 
+                                "Pursuit Of Happiness", "Don't You Worry Child", ],
+            topRecommendationsImages: [marshmelloImage, calvinHarrisImage, ledZeppelinImage, divineFitsImage, mgmtImage, deorroImage, gunNRosesImage, modestMouseImage, kidCudiImage, swedishHouseMafiaImage],
+            topRecommendationsArtistName: ["Marshmello", "Calvin Harris", "Led Zeppelin", "Divine Fits", "MGMT", "Deorro", "Guns N' Roses", "Modest Mouse", 
+                                            "Kid Cudi", "Swedish House Mafia"],
 
             songFeatures: {
                 "acousticness": 0.1,
@@ -526,7 +532,7 @@ class Main extends Component {
                 </Router>
                 </> 
                 : this.state.isNoData ? <Login login={() => this.handleLogin()} isNoData={this.state.isNoData}/>
-                : <Login login={() => this.handleLogin()} sample={() => this.handleSampleAccount()} isSignOut={this.state.isSignOut}/>}
+                : <Login login={() => this.handleLogin()} sample={() => this.handleSampleAccount()} isSignOut={this.state.isSignOut} isSampleAccount={this.state.isSampleAccount}/>}
             </div>
         );
     }
