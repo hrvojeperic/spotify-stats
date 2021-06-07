@@ -1,4 +1,5 @@
 import axios from 'axios';
+import token from './token';
 
 const requests = {
 
@@ -11,7 +12,7 @@ const requests = {
         
         axios.get(ENDPOINT, {
             headers: {
-                Authorization: "Bearer " + localStorage.getItem("accessToken"),
+                Authorization: "Bearer " + token.access_token,
             }
         })
         .then((response) => {
@@ -42,7 +43,7 @@ const requests = {
         
         axios.get(ENDPOINT, {
             headers: {
-                Authorization: "Bearer " + localStorage.getItem("accessToken"),
+                Authorization: "Bearer " + token.access_token,
             }
         })
         .then((response) => {
@@ -74,7 +75,7 @@ const requests = {
         
         axios.get(ENDPOINT, {
             headers: {
-                Authorization: "Bearer " + localStorage.getItem("accessToken"),
+                Authorization: "Bearer " + token.access_token,
             }
         })
         .then((response) => {
@@ -107,7 +108,7 @@ const requests = {
 
         axios.get(ENDPOINT, {
             headers: {
-                Authorization: "Bearer " + localStorage.getItem("accessToken"),
+                Authorization: "Bearer " + token.access_token,
             }
         })
         .then((response) => {
@@ -139,7 +140,7 @@ const requests = {
 
         axios.get(ENDPOINT, {
             headers: {
-                Authorization: "Bearer " + localStorage.getItem("accessToken"),
+                Authorization: "Bearer " + token.access_token,
             }
         })
         .then((response) => {

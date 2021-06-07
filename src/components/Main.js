@@ -31,6 +31,7 @@ import mgmtImage from '../images/mgmt.jpg';
 import modestMouseImage from '../images/modest_mouse.jpg';
 import swedishHouseMafiaImage from '../images/swedish_house_mafia.jpg';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import token from '../utilities/token';
 
 class Main extends Component {
 
@@ -71,15 +72,14 @@ class Main extends Component {
         if(window.location.hash){
             this.setState({visible: false});
             const paramInfo = this.getParamsFromAuthentication(window.location.hash);
-            localStorage.clear();
             this.setState({
                 accessToken: paramInfo.access_token, 
                 tokenType: paramInfo.token_type, 
                 expiresIn: paramInfo.expires_in}
             );
-            localStorage.setItem("accessToken", paramInfo.access_token);
-            localStorage.setItem("tokenType", paramInfo.token_type);
-            localStorage.setItem("expiresIn", paramInfo.expires_in);
+            token.access_token = paramInfo.access_token;
+            token.token_type = paramInfo.token_type;
+            token.expires_in = paramInfo.expires_in;
         }
     }
 
@@ -114,6 +114,7 @@ class Main extends Component {
             visible: true,
             isSignOut: true
         })
+        window.history.replaceState(null, "New Page Title", "/spotify-stats")
         return null;
     }
 
@@ -460,7 +461,7 @@ class Main extends Component {
             isSampleAccount: true,
             visible: false,
 
-            userName: "Joey",
+            userName: "Steve",
             followers: 7,
             userImage: defaultIcon,
 
@@ -470,7 +471,7 @@ class Main extends Component {
 
             topArtistNames: ["Led Zeppelin", "Blink-182", "Avicii", "AC/DC", "U2", "The Rolling Stones", "Calvin Harris", "Dua Lipa", "Marshmello", "Hardwell"],
             topArtistImages: [ledZeppelinImage, blink182Image, aviciiImage, acdcImage, u2Image, theRollingStonesImage, calvinHarrisImage, duaLipaImage, marshmelloImage, hardwellImage],
-            topArtistFollowers: [],
+            topArtistFollowers: ["10,720,000", "31,753", "23,703,006", "19,210,000", "1,310,000", "2,140,000", "21,690,000", "25,280,000", "30,740,000", "3,438,881"],
 
             topGenres: ["rock", "classic rock", "punk rock", "electronic dance music", "pop", "hard rock", "dance", "house", "alternative rock", "hip hop"],
             
